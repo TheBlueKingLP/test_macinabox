@@ -41,6 +41,8 @@ fullinstall() {
 		    echo "created vdisk as qcow2"
 		else
 			echo "There is already a vdisk  image here...skipping"
+			echo "."
+			echo "."
 			SKIPVDISK=yes
 
 			fi
@@ -68,11 +70,15 @@ prepareinstall() {
 	if [ ! -d $IMAGE2 ] ; then
 		
 	mkdir -vp $IMAGE2
-	echo "created  Macinabox dirs in vm domain location"
-	else
-	echo "  Macinabox dirs already present......continuing."
-			
-	fi		
+	echo "I have created the Macinabox directories"
+    echo "."
+    echo "."
+else
+	echo "  Macinabox directories are already present......continuing."
+    echo "."
+    echo "."
+
+	fi			
 	
 	makeimg
 	rsync -a --no-o /Macinabox/domainfiles/ /config
@@ -205,9 +211,12 @@ else
 fi
 	echo "."
 	echo "."
-	echo "."
 	echo "OK process has finished"
+	if [ ! $SKIPXML == "yes" ] ; then
+	echo "."
+	echo "."
     echo "Now you must stop and start the array. The vm will be visable in the Unraid VM manager"
+	fi
 	
 }
 
@@ -278,12 +287,16 @@ case $argument in
     --full-install)
 		IMAGE=/image/Macinabox$NAME
 		DIR=$IMAGE
-		echo " full install to unraid domain $IMAGE"
+		echo " Full install starting to unraid domain $IMAGE"
+		echo "."
+		echo "."
 		fullinstall
 		print_result1
         ;;
     --prepare-install)
         echo " preparation of install media"
+		echo "."
+		echo "."
 		IMAGE2=/config/install_media/$NAME
 		DIR=$IMAGE2
 		prepareinstall
