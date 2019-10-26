@@ -273,7 +273,7 @@ case $argument in
     --full-install)
 		IMAGE=/image/Macinabox$NAME
 		DIR=$IMAGE
-		echo " full install to unraid domain SIMAGE"
+		echo " full install to unraid domain $IMAGE"
 		fullinstall
 		print_result1
         ;;
