@@ -16,12 +16,16 @@ fullinstall() {
 	if [ ! -d $IMAGE ] ; then
 		
 				mkdir -vp $IMAGE
-				echo "created  Macinabox directories"
+				echo "I have created the Macinabox directories"
+				echo "......................................"
+				echo "......................................"
 			else
-				echo "  Macinabox directories already present......continuing."
+				echo "  Macinabox directories are already present......continuing."
+				echo "......................................"
+				echo "......................................"
 			
 				fi		
-	
+
 
     if [ $TYPE == "raw" ] && [ ! -e $IMAGE/macos_disk.img ]; then
 	
@@ -93,7 +97,9 @@ pullhsierra() {
 	if [ ! -e /image/MacinaboxHighSierra/HighSierra-install.img ] ; then
     "/Macinabox/tools/FetchMacOS/fetch.sh" -p 041-91758  -c PublicRelease13 || exit 1;
 else
-	echo "I have already downloaded this"
+	echo "Media already exists. I have already downloaded the High Sierra install media before"
+	echo "......................................"
+	echo "......................................"
 
 fi
 }
@@ -106,7 +112,9 @@ pullmojave() {
 	if [ ! -e /image/MacinaboxMojave/Mojave-install.img ] ; then
     "/Macinabox/tools/FetchMacOS/fetch.sh" -p 061-26589  -c PublicRelease14 || exit 1;
 else
-	echo "I have already downloaded this"
+	echo "Media already exists. I have already downloaded the Mojave install media before"
+	echo "......................................"
+	echo "......................................"
 
 fi
 }
@@ -120,7 +128,9 @@ fi
 		if [ ! -e /image/MacinaboxCatalina/Catalina-install.img ] ; then
 	    "/Macinabox/tools/FetchMacOS/fetch.sh" -l -c PublicRelease || exit 1;
 	else
-		echo "I have already downloaded this"
+		echo "Media already exists. I have already downloaded the Catalina install media before"
+		echo "......................................"
+		echo "......................................"
 
 	fi
 	}
@@ -164,14 +174,14 @@ echo "."
 	echo "The reference /image below refers to where you mapped that folder in the docker template on your server (normally to /mnt/user/doamins)"
     echo "."
 	echo "."
-	if [ $SKIPIMG ! == "yes" ] ; then
+	if [ ! $SKIPIMG == "yes" ] ; then
     echo "MacOS install media was put in $DIR/$NAME-install.img"
 else
 	echo "Install media was already present"
 fi
 	echo "."
 	echo "."
-	if [ $SKIPVDISK ! == "yes" ] ; then
+	if [ ! $SKIPVDISK == "yes" ] ; then
     echo "A $TYPE Vdisk of $vdisksize was created in $IMAGE "
 else
 	echo "Vdisk was already present"
