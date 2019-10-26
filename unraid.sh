@@ -193,9 +193,9 @@ print_usage() {
 
 print_result1() {
     echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    echo "."	
+    echo 	
 	echo "Summary of what has been done"
-    echo "."
+    echo 
     echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     echo "."
 	echo "."
