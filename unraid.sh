@@ -63,6 +63,8 @@ chmod  777 /xml/$XML
 SKIPXML=yes
 else
 	echo "vm template was already present please manually delete it, if you want me to replace it"
+	echo "."
+	echo "."
 fi
 
 }
@@ -185,8 +187,9 @@ print_result1() {
     echo "."
     echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     echo "."
+	echo "."
 	echo "The reference /image below refers to where you mapped that folder in the docker template on your server "
-    echo ".(normally to /mnt/user/doamins)"
+    echo "(normally to /mnt/user/doamins)"
 	echo "."
 	echo "."
 	if [ ! $SKIPIMG == "yes" ] ; then
