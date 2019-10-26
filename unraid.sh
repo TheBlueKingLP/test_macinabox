@@ -23,14 +23,20 @@ fullinstall() {
 				fi		
 	
 
-    if [ $TYPE == "raw" ] ; then
+    if [ $TYPE == "raw" ] && [ ! -e $IMAGE/macos_disk.img ]; then
 	
 			qemu-img create -f raw /$IMAGE/macos_disk.img $vdisksize
 			echo "created vdisk as raw"
-		else
+	
+		elif [ $TYPE == "qcow2" ] &&  [ ! -e $IMAGE/macos_disk.qcow2 ]; then
 			qemu-img create -f qcow2 /$IMAGE/macos_disk.qcow2 $vdisksize
 		    echo "created vdisk as qcow2"
-			fi	
+		else
+			echo "There is already a vdisk  image here...skipping"
+			SKIPVDISK=yes
+
+			fi
+			
 makeimg		
 rsync -a --no-o /Macinabox/domainfiles/ $IMAGE
 rsync -a --no-o /Macinabox/xml/$TYPE/$XML /xml/$XML
@@ -67,10 +73,16 @@ prepareinstall() {
 # #  Covert DMD to IMG Function - Coverts the download macOS Baseimage as .dmg to a usable .img format   # # # # # # # # # # # # # # # # # # # # # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 makeimg() {
+if [ ! -d $DIR/$NAME-install.img ] ; then
 "/Macinabox/tools/dmg2img" "/Macinabox/tools/FetchMacOS/BaseSystem/BaseSystem.dmg" "$DIR/$NAME-install.img"
 chmod 777 "$DIR/$NAME-install.img"
 #cleanup
-rm -R /Macinabox/tools/FetchMacOS/BaseSystem
+rm -r /Macinabox/tools/FetchMacOS/BaseSystem/*
+else
+echo "already created skipping"
+rm -r /Macinabox/tools/FetchMacOS/BaseSystem/*
+SKIPIMG=yes
+
 }
 
 						
@@ -98,26 +110,61 @@ print_usage() {
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 print_result1() {
-	echo
-	echo
-	echo "the reference /image below refers to where you mapped that folder on your server (normally to /mnt/user/doamins)"
-    echo
+	
+> 	
+echo "......................................"
+echo "......................................"
+echo "......................................"
+echo "......................................"
+echo "......................................"
+echo "......................................"
+echo "......................................"
+echo "......................................"
+echo "......................................"
+echo "."
+echo "."
+	echo "The reference /image below refers to where you mapped that folder in the docker template on your server (normally to /mnt/user/doamins)"
+    echo "."
+	echo "."
+	if [ $SKIPIMG ! == "yes" ] ; then
     echo "MacOS install media was put in $DIR/$NAME-install.img"
-	echo
+else
+	echo "Install media was already present"
+fi
+	echo "."
+	echo "."
+	if [ $SKIPVDISK ! == "yes" ] ; then
     echo "A $TYPE Vdisk of $vdisksize was created in $IMAGE "
-    echo 
+else
+	echo "Vdisk was already present"
+fi
+    echo "."
+	echo "."
     echo "Compatible OVMF files vere put in $IMAGE/ovmf"
-	echo 
-	echo "XML template file for the vm was placed in Unraid system files and will show in vm manager after array has been stopped and restarted"
-	echo
-    echo "Now you must stop and start the array. Then start the vm and the install will start"
-	echo
+	echo "."
+	echo "."
+	echo "XML template file for the vm was placed in Unraid system files. This file assumes your vm path"
+	echo "is /mnt/user/domains if it isnt you will need to manually edit the template changing the locations accordingly"
+	echo "."
+	echo "."
+	echo "."
+	echo "OK process has finished"
+    echo "Now you must stop and start the array. Then start the vm will be visable in the Unraid VM manager"
+	
 }
 
 print_result2() {
-	echo
-	echo
-    echo
+	echo "......................................"
+	echo "......................................"
+	echo "......................................"
+	echo "......................................"
+	echo "......................................"
+	echo "......................................"
+	echo "......................................"
+	echo "......................................"
+	echo "......................................"
+	echo "."
+	echo "."
     echo "MacOS inatall media was put in $DIR/$NAME-install.img"
 	echo
     echo "No Vdisk was created. You will need to manaually do this as prepare option was set in docker container template"
@@ -152,17 +199,26 @@ case $argument in
     -s|--high-sierra)
 		XML=MacinaboxHighSierra.xml
 		NAME=HighSierra
+		if [ ! -e /image/MacinaboxHighSierra/HighSierra-install.img ] ; then
         "/Macinabox/tools/FetchMacOS/fetch.sh" -p 041-91758  -c PublicRelease13 || exit 1;
+	else
+		echo "I have already downloaded this"
         ;;
     -m|--mojave)
 		XML=MacinaboxMojave.xml
 		NAME=Mojave
+		if [ ! -e /image/MacinaboxMojave/Mojave-install.img ] ; then
         "/Macinabox/tools/FetchMacOS/fetch.sh" -p 061-26589  -c PublicRelease14 || exit 1;
+	else
+		echo "I have already downloaded this"
         ;;
     -c|--catalina|*)
 		XML=MacinaboxCatalina.xml
 		NAME=Catalina
+		if [ ! -e /image/MacinaboxCatalina/Catalina-install.img ] ; then
         "/Macinabox/tools/FetchMacOS/fetch.sh" -l -c PublicRelease || exit 1;
+	else
+		echo "I have already downloaded this"
         ;;
 		
 	
