@@ -11,18 +11,22 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # #  Full install Function - Creates ready to run the macOS installer, clover, vdisk ,ovmf and vm definition in defualt domains share # # # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #  # # # # # 
+currentDate=`date`
+echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+echo "Starting process at $currentDate "
+echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 fullinstall() {
 	if [ ! -d $IMAGE ] ; then
 		
 				mkdir -vp $IMAGE
 				echo "I have created the Macinabox directories"
-				echo "......................................"
-				echo "......................................"
+			    echo "."
+			    echo "."
 			else
 				echo "  Macinabox directories are already present......continuing."
-				echo "......................................"
-				echo "......................................"
+			    echo "."
+			    echo "."
 			
 				fi		
 
@@ -44,9 +48,11 @@ fullinstall() {
 makeimg		
 rsync -a --no-o /Macinabox/domainfiles/ $IMAGE
 chmod -R 777 $IMAGE
+
 if [ ! -e /xml/$XML ] ; then
 rsync -a --no-o /Macinabox/xml/$TYPE/$XML /xml/$XML
 chmod  777 /xml/$XML 
+SKIPXML=yes
 else
 	echo "vm template was already present please manually delete it, if you want me to replace it"
 fi
@@ -101,8 +107,8 @@ pullhsierra() {
     "/Macinabox/tools/FetchMacOS/fetch.sh" -p 041-91758  -c PublicRelease13 || exit 1;
 else
 	echo "Media already exists. I have already downloaded the High Sierra install media before"
-	echo "......................................"
-	echo "......................................"
+    echo "."
+    echo "."
 
 fi
 }
@@ -116,8 +122,8 @@ pullmojave() {
     "/Macinabox/tools/FetchMacOS/fetch.sh" -p 061-26589  -c PublicRelease14 || exit 1;
 else
 	echo "Media already exists. I have already downloaded the Mojave install media before"
-	echo "......................................"
-	echo "......................................"
+    echo "."
+    echo "."
 
 fi
 }
@@ -132,8 +138,8 @@ fi
 	    "/Macinabox/tools/FetchMacOS/fetch.sh" -l -c PublicRelease || exit 1;
 	else
 		echo "Media already exists. I have already downloaded the Catalina install media before"
-		echo "......................................"
-		echo "......................................"
+	    echo "."
+	    echo "."
 
 	fi
 	}
@@ -162,18 +168,12 @@ print_usage() {
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 print_result1() {
-		
-echo "......................................"
-echo "......................................"
-echo "......................................"
-echo "......................................"
-echo "......................................"
-echo "......................................"
-echo "......................................"
-echo "......................................"
-echo "......................................"
-echo "."
-echo "."
+    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    echo "."	
+	echo "Summary of what has been done"
+    echo "."
+    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    echo "."
 	echo "The reference /image below refers to where you mapped that folder in the docker template on your server "
     echo ".(normally to /mnt/user/doamins)"
 	echo "."
@@ -191,12 +191,19 @@ else
 	echo "Vdisk was already present"
 fi
     echo "."
+    echo "."
+    echo "Uptodate clover image was put in $IMAGE"
+    echo "."
 	echo "."
     echo "Compatible OVMF files vere put in $IMAGE/ovmf"
 	echo "."
 	echo "."
+	if [ ! $SKIPXML == "yes" ] ; then
 	echo "XML template file for the vm was placed in Unraid system files. This file assumes your vm path"
 	echo "is /mnt/user/domains if it isnt you will need to manually edit the template changing the locations accordingly"
+else
+	echo "An XML file was already present for Macinabox$NAME you will need to manually delete if you want me to replace this"
+fi
 	echo "."
 	echo "."
 	echo "."
@@ -206,17 +213,12 @@ fi
 }
 
 print_result2() {
-	echo "......................................"
-	echo "......................................"
-	echo "......................................"
-	echo "......................................"
-	echo "......................................"
-	echo "......................................"
-	echo "......................................"
-	echo "......................................"
-	echo "......................................"
-	echo "."
-	echo "."
+    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    echo "."	
+	echo "Summary of what has been done"
+    echo "."
+    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    echo "."
     echo "MacOS inatall media was put in $DIR/$NAME-install.img"
 	echo
     echo "No Vdisk was created. You will need to manaually do this as prepare option was set in docker container template"
