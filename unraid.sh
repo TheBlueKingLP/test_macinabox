@@ -34,11 +34,17 @@ fullinstall() {
     if [ $TYPE == "raw" ] && [ ! -e $IMAGE/macos_disk.img ]; then
 	
 			qemu-img create -f raw /$IMAGE/macos_disk.img $vdisksize
-			echo "created vdisk as raw"
+			echo "."
+			echo "Created vdisk as type raw"
+			echo "."
+			echo "."
 	
 		elif [ $TYPE == "qcow2" ] &&  [ ! -e $IMAGE/macos_disk.qcow2 ]; then
 			qemu-img create -f qcow2 /$IMAGE/macos_disk.qcow2 $vdisksize
-		    echo "created vdisk as qcow2"
+			echo "."
+		    echo "Created vdisk as type qcow2"
+			echo "."
+			echo "."
 		else
 			echo "There is already a vdisk  image here...skipping"
 			echo "."
@@ -211,7 +217,7 @@ else
 fi
 	echo "."
 	echo "."
-	echo "OK process has finished"
+	echo "OK process has finished at $currentDate "
 	if [ ! $SKIPXML == "yes" ] ; then
 	echo "."
 	echo "."
@@ -235,8 +241,10 @@ print_result2() {
 	echo 
 	echo "XML template file for the vm was placed in /mnt/user/appdata/Macinabox"
 	echo
-    echo "So everything is prepared. You need to move files to correct place yourself and edit/copy xml then start the install"
-	echo
+    echo "Everything is now prepared. You need to move files to correct place yourself and edit/copy xml then start the install"
+	echo "."
+	echo "."
+	echo "OK process has finished at $currentDate "
 }
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
