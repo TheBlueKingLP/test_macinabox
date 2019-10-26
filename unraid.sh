@@ -73,7 +73,7 @@ prepareinstall() {
 # #  Covert DMD to IMG Function - Coverts the download macOS Baseimage as .dmg to a usable .img format   # # # # # # # # # # # # # # # # # # # # # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 makeimg() {
-if [ ! -d $DIR/$NAME-install.img ] ; then
+if [ ! -e $DIR/$NAME-install.img ] ; then
 "/Macinabox/tools/dmg2img" "/Macinabox/tools/FetchMacOS/BaseSystem/BaseSystem.dmg" "$DIR/$NAME-install.img"
 chmod 777 "$DIR/$NAME-install.img"
 #cleanup
@@ -82,7 +82,7 @@ else
 echo "already created skipping"
 rm -r /Macinabox/tools/FetchMacOS/BaseSystem/*
 SKIPIMG=yes
-
+fi
 }
 
 						
