@@ -119,6 +119,9 @@ fi
 pullhsierra() {
 
 	if [ ! -e /image/MacinaboxHighSierra/HighSierra-install.img ] ; then
+		echo "I am going to download the HighSierra recovery media. Please be patient!"
+	    echo "."
+	    echo "."
     "/Macinabox/tools/FetchMacOS/fetch.sh" -p 041-91758  -c PublicRelease13 || exit 1;
 else
 	echo "Media already exists. I have already downloaded the High Sierra install media before"
@@ -134,6 +137,9 @@ fi
 pullmojave() {
 
 	if [ ! -e /image/MacinaboxMojave/Mojave-install.img ] ; then
+		echo "I am going to download the Mojave recovery media. Please be patient!"
+	    echo "."
+	    echo "."
     "/Macinabox/tools/FetchMacOS/fetch.sh" -p 061-26589  -c PublicRelease14 || exit 1;
 else
 	echo "Media already exists. I have already downloaded the Mojave install media before"
@@ -150,6 +156,9 @@ fi
 	pullmojave() {
 
 		if [ ! -e /image/MacinaboxCatalina/Catalina-install.img ] ; then
+			echo "I am going to download the Catalina recovery media. Please be patient!"
+		    echo "."
+		    echo "."
 	    "/Macinabox/tools/FetchMacOS/fetch.sh" -l -c PublicRelease || exit 1;
 	else
 		echo "Media already exists. I have already downloaded the Catalina install media before"
