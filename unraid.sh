@@ -84,7 +84,6 @@ chmod 777 "$DIR/$NAME-install.img"
 rm -r /Macinabox/tools/FetchMacOS/BaseSystem/*
 else
 echo "already created skipping"
-rm -r /Macinabox/tools/FetchMacOS/BaseSystem/*
 SKIPIMG=yes
 fi
 }
@@ -171,8 +170,9 @@ echo "......................................"
 echo "......................................"
 echo "."
 echo "."
-	echo "The reference /image below refers to where you mapped that folder in the docker template on your server (normally to /mnt/user/doamins)"
-    echo "."
+	echo "The reference /image below refers to where you mapped that folder in the docker template on your server "
+    echo ".(normally to /mnt/user/doamins)"
+	echo "."
 	echo "."
 	if [ ! $SKIPIMG == "yes" ] ; then
     echo "MacOS install media was put in $DIR/$NAME-install.img"
@@ -197,7 +197,7 @@ fi
 	echo "."
 	echo "."
 	echo "OK process has finished"
-    echo "Now you must stop and start the array. Then start the vm will be visable in the Unraid VM manager"
+    echo "Now you must stop and start the array. The vm will be visable in the Unraid VM manager"
 	
 }
 
@@ -271,9 +271,9 @@ esac
 argument="$2"
 case $argument in
     --full-install)
-        echo " full install to unraid domain location"
 		IMAGE=/image/Macinabox$NAME
 		DIR=$IMAGE
+		echo " full install to unraid domain SIMAGE"
 		fullinstall
 		print_result1
         ;;
