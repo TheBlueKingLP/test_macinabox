@@ -43,9 +43,13 @@ fullinstall() {
 			
 makeimg		
 rsync -a --no-o /Macinabox/domainfiles/ $IMAGE
-rsync -a --no-o /Macinabox/xml/$TYPE/$XML /xml/$XML
 chmod -R 777 $IMAGE
-chmod  766 /xml/$XML 
+if [ ! -e /xml/$XML ] ; then
+rsync -a --no-o /Macinabox/xml/$TYPE/$XML /xml/$XML
+chmod  777 /xml/$XML 
+else
+	echo "vm template was already present please manually delete it, if you want me to replace it"
+fi
 
 }
 
