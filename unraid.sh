@@ -85,6 +85,45 @@ SKIPIMG=yes
 fi
 }
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# #  Pull High sierra if not already downloaded   # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+pullhsierra() {
+
+	if [ ! -e /image/MacinaboxHighSierra/HighSierra-install.img ] ; then
+    "/Macinabox/tools/FetchMacOS/fetch.sh" -p 041-91758  -c PublicRelease13 || exit 1;
+else
+	echo "I have already downloaded this"
+
+fi
+}
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# #  Pull Mojave if not already downloaded   # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+pullmojave() {
+
+	if [ ! -e /image/MacinaboxMojave/Mojave-install.img ] ; then
+    "/Macinabox/tools/FetchMacOS/fetch.sh" -p 061-26589  -c PublicRelease14 || exit 1;
+else
+	echo "I have already downloaded this"
+
+fi
+}
+
+	
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# #  Pull Catalina if not already downloaded   # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+	pullmojave() {
+
+		if [ ! -e /image/MacinaboxCatalina/Catalina-install.img ] ; then
+	    "/Macinabox/tools/FetchMacOS/fetch.sh" -l -c PublicRelease || exit 1;
+	else
+		echo "I have already downloaded this"
+
+	fi
+	}
 						
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # #  Print usage Function - Prints info on flags used which are passed from the Unraid docker container template  # # # # # # # # # # # # # # # # #  
@@ -198,26 +237,17 @@ case $argument in
     -s|--high-sierra)
 		XML=MacinaboxHighSierra.xml
 		NAME=HighSierra
-		if [ ! -e /image/MacinaboxHighSierra/HighSierra-install.img ] ; then
-        "/Macinabox/tools/FetchMacOS/fetch.sh" -p 041-91758  -c PublicRelease13 || exit 1;
-	else
-		echo "I have already downloaded this"
-        ;;
+		pullhsierra
+		;;
     -m|--mojave)
 		XML=MacinaboxMojave.xml
 		NAME=Mojave
-		if [ ! -e /image/MacinaboxMojave/Mojave-install.img ] ; then
-        "/Macinabox/tools/FetchMacOS/fetch.sh" -p 061-26589  -c PublicRelease14 || exit 1;
-	else
-		echo "I have already downloaded this"
+		pullmojave
         ;;
     -c|--catalina|*)
 		XML=MacinaboxCatalina.xml
 		NAME=Catalina
-		if [ ! -e /image/MacinaboxCatalina/Catalina-install.img ] ; then
-        "/Macinabox/tools/FetchMacOS/fetch.sh" -l -c PublicRelease || exit 1;
-	else
-		echo "I have already downloaded this"
+		pullcatalina
         ;;
 		
 	
