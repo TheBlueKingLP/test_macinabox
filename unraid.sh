@@ -62,12 +62,16 @@ chmod -R 777 $IMAGE
 if [ ! -e /xml/$XML ] ; then
 rsync -a --no-o /Macinabox/xml/$TYPE/$XML /xml/$XML
 chmod  777 /xml/$XML 
+echo "vm template moved to server"
+echo "."
+echo "."
 
 else
 	vmtemplate=""
 	echo "vm template was already present please manually delete it, if you want me to replace it"
 	echo "."
 	echo "."
+	SKIPXML=yes
 fi
 
 }
