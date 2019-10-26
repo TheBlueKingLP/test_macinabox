@@ -12,9 +12,11 @@
 # #  Full install Function - Creates ready to run the macOS installer, clover, vdisk ,ovmf and vm definition in defualt domains share # # # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #  # # # # # 
 currentDate=`date`
+echo
 echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 echo "Starting process at $currentDate "
 echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+echo
 
 fullinstall() {
 	if [ ! -d $IMAGE ] ; then
