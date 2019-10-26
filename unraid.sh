@@ -93,7 +93,6 @@ chmod 777 "$DIR/$NAME-install.img"
 #cleanup
 rm -r /Macinabox/tools/FetchMacOS/BaseSystem/*
 else
-echo "already created skipping"
 SKIPIMG=yes
 fi
 }
