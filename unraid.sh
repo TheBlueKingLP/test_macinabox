@@ -242,6 +242,11 @@ else
 	
 	fi
 	
+	echo "skip xml $SKIPXML"
+	echo "skip visk $SKIPVDISK"
+	echo "skip image $SKIPIMG"
+	
+	
 }
 
 print_result2() {
